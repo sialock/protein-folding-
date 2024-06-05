@@ -1,5 +1,8 @@
 Hi everyone :)
 This code performs the following steps:
+first thing you should install biopython
+
+pip install biopython mdtraj
 
 
 1_Downloads and loads a protein structure from the PDB.
@@ -8,3 +11,6 @@ This code performs the following steps:
 4_Saves the folded structure to a PDB file.
 You can run this code and see the results of the protein folding simulation. Note that this simulation is simplified, and more accurate simulations require more complex energy functions and advanced algorithms.
 (Python code for simulating protein folding using Monte Carlo and analyzing the structure with MDTraj and Bio.PDB)
+
+
+
