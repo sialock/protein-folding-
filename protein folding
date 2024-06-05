@@ -1,0 +1,80 @@
+import mdtraj as md
+from Bio.PDB import PDBParser, PDBList
+import numpy as np
+import random
+
+# Download and read protein structure from PDB
+def download_pdb(pdb_id, save_path='pdb_files'):
+    pdbl = PDBList()
+    pdbl.retrieve_pdb_file(pdb_id, pdir=save_path, file_format='pdb')
+    return f"{save_path}/pdb{pdb_id}.ent"
+
+# Load protein structure
+def load_structure(file_path):
+    parser = PDBParser()
+    structure = parser.get_structure('protein', file_path)
+    return structure
+
+# Analyze protein structure with MDTraj
+def analyze_structure(file_path):
+    traj = md.load(file_path)
+    topology = traj.topology
+    return traj, topology
+
+# Simple protein folding simulation with Monte Carlo algorithm
+def monte_carlo_folding(structure, steps=1000, temperature=300):
+    atoms = list(structure.get_atoms())
+    coords = np.array([atom.coord for atom in atoms])
+
+    def energy(coords):
+        # Simple energy based on the distance between atoms
+        dist = np.linalg.norm(coords[:, None, :] - coords[None, :, :], axis=2)
+        return np.sum(1 / (dist + 1e-6))  # Avoid division by zero
+
+    def move_atom(coords, atom_index, max_displacement=0.1):
+        displacement = np.random.uniform(-max_displacement, max_displacement, size=3)
+        coords[atom_index] += displacement
+        return coords
+
+    k_B = 1.380649e-23  # Boltzmann constant
+    current_energy = energy(coords)
+    
+    for step in range(steps):
+        atom_index = random.randint(0, len(atoms) - 1)
+        new_coords = move_atom(coords.copy(), atom_index)
+        new_energy = energy(new_coords)
+        
+        delta_energy = new_energy - current_energy
+        if delta_energy < 0 or random.uniform(0, 1) < np.exp(-delta_energy / (k_B * temperature)):
+            coords = new_coords
+            current_energy = new_energy
+
+        if step % 100 == 0:
+            print(f"Step {step}, Energy: {current_energy}")
+
+    # Update atom coordinates
+    for i, atom in enumerate(atoms):
+        atom.coord = coords[i]
+
+    return structure
+
+# Download and load protein structure
+pdb_id = "1AKE"  # Example PDB ID
+file_path = download_pdb(pdb_id)
+structure = load_structure(file_path)
+
+# Analyze initial structure
+traj, topology = analyze_structure(file_path)
+
+# Run Monte Carlo folding simulation
+folded_structure = monte_carlo_folding(structure, steps=1000)
+
+# Save folded structure
+output_file = "folded_structure.pdb"
+with open(output_file, "w") as f:
+    from Bio.PDB import PDBIO
+    io = PDBIO()
+    io.set_structure(folded_structure)
+    io.save(f)
+    
+print(f"Folded structure saved to {output_file}")
