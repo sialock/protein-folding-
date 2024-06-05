@@ -1,6 +1,7 @@
 Hi everyone :)
 This code performs the following steps:
 
+
 1_Downloads and loads a protein structure from the PDB.
 2_Analyzes the structure using MDTraj.
 3_Executes a simple Monte Carlo simulation to fold the protein.
