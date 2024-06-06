@@ -3,7 +3,7 @@ from Bio.PDB import PDBParser, PDBList
 import numpy as np
 import random
 
-# Download and read protein structure from PDB
+#  Download and read protein structur from PDB
 def download_pdb(pdb_id, save_path='pdb_files'):
     pdbl = PDBList()
     pdbl.retrieve_pdb_file(pdb_id, pdir=save_path, file_format='pdb')
