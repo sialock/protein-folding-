@@ -1,29 +1,25 @@
-# Migration / original code audit
+# Legacy migration and scientific corrections
 
-Original repositories (retained; nothing here deletes them):
+The former `protein-folding-` repository contained a small exploratory Monte Carlo script. Protein-MC-Go v0.1 replaces it with a testable, installable, explicitly **native-biased Cα** demonstration. The original source remains available through Git history; no rewriting of historic commits is required.
 
-- https://github.com/sialock/protein-folding-
-- https://github.com/sialock/protein-folding-using-Monte-Carlo-and-analyzing-the-structure
+A separate, related legacy experiment also exists at [protein-folding-using-Monte-Carlo-and-analyzing-the-structure](https://github.com/sialock/protein-folding-using-Monte-Carlo-and-analyzing-the-structure). It is not a dependency and none of its code is mixed into this repository.
 
-## Critical corrections
+## Main corrections
 
-| Original behavior | Replacement |
+| Legacy approach | Current approach |
 | --- | --- |
-| `k_B = 1.380649e-23` (J/K) applied to an arbitrary, uncalibrated energy | Explicit dimensionless toy-energy units with dimensionless temperature |
-| Lennard-Jones pair potential used without a calibrated full force field | Explicit educational native-biased contact potential; limited claim |
-| Pairwise division by zero on diagonal followed by filtering | Nonlocal unique pair indices, no diagonal pairs |
-| Random independent atom displacements break covalent chain geometry | C-alpha crankshaft proposals preserve adjacent distances |
-| Multiple concurrent simulations share mutable `Bio.PDB` structure | One immutable reference and one independently seeded RNG per run |
-| Bare unversioned code with hard-coded downloaded PDB | Installable `src/` package, local synthetic fixture, CLI and tests |
-| Files called `folded_structure*.pdb` | C-alpha-only `initial_ca`, `best_ca`, `final_ca` with limitations |
+| `k_B = 1.380649e-23` in J/K applied to arbitrary numerical energies | Consistent dimensionless toy energy with reduced temperature |
+| Lennard-Jones potential without a calibrated atomistic force field | Explicit native-contact attraction and repulsive toy potential |
+| Pairwise divisions including zero-distance diagonal | Unique nonlocal pairs; no self-interaction |
+| Independent atom displacements that can destroy chain continuity | Cα crankshaft proposals preserving neighbor distances |
+| Shared mutable structure during threaded simulations | Separate seeded runs using immutable reference coordinates |
+| Hard-coded remote PDB and a single untitled code file | Local synthetic example, CLI, packaging, documented tests |
+| “Folded” outputs without scientific qualification | Explicit initial/best/final Cα models and toy-energy diagnostics |
 
-## Practical upload to existing GitHub repository
+## Interpretation limits
 
-1. Extract the release archive into a fresh clone of `sialock/protein-folding-`.
-2. Preserve its pre-existing `protein folding` file if you want the legacy script.
-3. Run `python -m pip install -e ".[dev]"` and `python -m pytest -q`.
-4. Commit the new files and publish. See the README's instructions.
-5. Only archive the second duplicate repo after reviewing its uniqueness.
+The native reference *defines* the energetic minimum. Therefore an apparent decrease in RMSD is not evidence of sequence-to-structure prediction. This code is not a force-field-validated molecular dynamics implementation or an independent enzyme-structure prediction method. See [scientific notes](SCIENTIFIC_NOTES.md).
 
-The original scripts are preserved online and should not be represented as a
-validated folding predictor. The new model remains intentionally educational.
+## Reproducibility
+
+Install and test the current package using the commands in [DEVELOPMENT.md](DEVELOPMENT.md). Earlier versions are inspectable via Git history; avoid reproducing their physical assumptions as established folding science.
