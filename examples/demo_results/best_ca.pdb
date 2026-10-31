@@ -1,0 +1,27 @@
+REMARK 900 C-ALPHA-ONLY DEMONSTRATION; lowest toy-energy configuration
+ATOM      1  CA  ALA A   1       2.300   0.000   0.000  1.00  0.00           C
+ATOM      2  CA  ALA A   2       5.336   1.106   2.055  1.00  0.00           C
+ATOM      3  CA  ALA A   3       1.983   1.994   3.679  1.00  0.00           C
+ATOM      4  CA  ALA A   4      -1.787   1.436   3.303  1.00  0.00           C
+ATOM      5  CA  ALA A   5      -5.345   0.339   2.406  1.00  0.00           C
+ATOM      6  CA  ALA A   6      -2.706  -0.202   5.129  1.00  0.00           C
+ATOM      7  CA  ALA A   7      -1.624  -1.382   8.608  1.00  0.00           C
+ATOM      8  CA  ALA A   8      -4.821  -2.537   6.844  1.00  0.00           C
+ATOM      9  CA  ALA A   9      -3.914   0.762   8.565  1.00  0.00           C
+ATOM     10  CA  ALA A  10      -4.134   4.538   9.163  1.00  0.00           C
+ATOM     11  CA  ALA A  11      -5.704   2.079  11.643  1.00  0.00           C
+ATOM     12  CA  ALA A  12      -4.552   4.135  14.663  1.00  0.00           C
+ATOM     13  CA  ALA A  13      -5.028   2.742  18.198  1.00  0.00           C
+ATOM     14  CA  ALA A  14      -8.582   2.288  16.843  1.00  0.00           C
+ATOM     15  CA  ALA A  15      -5.108   0.720  17.225  1.00  0.00           C
+ATOM     16  CA  ALA A  16      -5.721   1.255  20.968  1.00  0.00           C
+ATOM     17  CA  ALA A  17      -9.384   1.039  22.063  1.00  0.00           C
+ATOM     18  CA  ALA A  18      -6.624   3.694  22.001  1.00  0.00           C
+ATOM     19  CA  ALA A  19      -3.944   1.455  23.573  1.00  0.00           C
+ATOM     20  CA  ALA A  20      -6.119   4.503  24.374  1.00  0.00           C
+ATOM     21  CA  ALA A  21      -8.166   3.991  27.571  1.00  0.00           C
+ATOM     22  CA  ALA A  22      -4.828   2.115  27.554  1.00  0.00           C
+ATOM     23  CA  ALA A  23      -3.503   1.469  31.089  1.00  0.00           C
+ATOM     24  CA  ALA A  24      -1.762   1.478  34.500  1.00  0.00           C
+TER
+END

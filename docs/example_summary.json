@@ -1,0 +1,33 @@
+{
+  "acceptance_rate": 0.8683333333333333,
+  "best_energy_reduced": -13.049833446290108,
+  "best_rmsd_angstrom": 3.7062573453880145,
+  "chain": "A",
+  "config": {
+    "max_angle_degrees": 40.0,
+    "report_every": 10,
+    "scramble_steps": 120,
+    "seed": 42,
+    "steps": 600,
+    "temperature": 1.0
+  },
+  "coordinate_units": "Angstrom",
+  "energy_parameters": {
+    "contact_strength": 1.0,
+    "contact_width_angstrom": 1.25,
+    "excluded_radius_angstrom": 4.0,
+    "min_sequence_separation": 4,
+    "native_contact_cutoff_angstrom": 8.0,
+    "repulsion_strength": 5.0
+  },
+  "final_energy_reduced": -10.148679075657085,
+  "final_rmsd_angstrom": 4.574237892455179,
+  "initial_rmsd_angstrom": 4.037623132882842,
+  "interpretation": "Native-biased educational Go-like model, not de novo folding or MD",
+  "n_ca_residues": 24,
+  "n_native_contacts": 20,
+  "pdb_sha256": "b8a6789e1bab13078dc944c600090eb344fc53dcc30f27b2b8d06c1adb14b091",
+  "temperature_units": "dimensionless reduced energy (k_B*T)",
+  "tool": "protein-mc-go",
+  "version": "0.1.0"
+}
