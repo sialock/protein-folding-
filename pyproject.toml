@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "protein-mc-go"
+version = "0.1.0"
+description = "Reproducible C-alpha native-biased Monte Carlo protein-structure demonstration"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [{name = "sialock"}]
+keywords = ["protein", "monte-carlo", "bioinformatics", "go-model", "coarse-grained"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = ["numpy>=1.24,<3", "biopython>=1.81,<2"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "build>=1"]
+
+[project.scripts]
+protein-mc = "protein_mc.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100

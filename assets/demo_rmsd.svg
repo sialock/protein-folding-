@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="440" viewBox="0 0 820 440">
+<rect width="820" height="440" rx="16" fill="#f9fbff"/>
+<text x="74" y="36" fill="#14253b" font-family="Arial,sans-serif" font-size="22" font-weight="bold">CA RMSD</text>
+<line x1="74" y1="65" x2="74" y2="365" stroke="#9da9b8"/>
+<line x1="74" y1="365" x2="754" y2="365" stroke="#9da9b8"/>
+<text x="65" y="369.0" font-size="12" text-anchor="end" fill="#455569">3.56</text><text x="65" y="294.0" font-size="12" text-anchor="end" fill="#455569">4.00</text><text x="65" y="219.0" font-size="12" text-anchor="end" fill="#455569">4.44</text><text x="65" y="144.0" font-size="12" text-anchor="end" fill="#455569">4.88</text><text x="65" y="69.0" font-size="12" text-anchor="end" fill="#455569">5.31</text>
+<polyline points="74.0,283.1 85.3,277.3 96.7,275.6 108.0,245.7 119.3,272.0 130.7,236.7 142.0,247.4 153.3,218.2 164.7,178.9 176.0,176.3 187.3,169.5 198.7,150.4 210.0,154.5 221.3,141.4 232.7,130.4 244.0,104.1 255.3,124.8 266.7,80.4 278.0,65.0 289.3,70.9 300.7,141.2 312.0,177.8 323.3,161.6 334.7,168.7 346.0,153.4 357.3,158.9 368.7,154.3 380.0,140.9 391.3,177.9 402.7,142.2 414.0,188.2 425.3,170.5 436.7,168.9 448.0,184.1 459.3,179.4 470.7,224.7 482.0,268.7 493.3,292.3 504.7,335.6 516.0,365.0 527.3,356.1 538.7,347.0 550.0,314.0 561.3,307.8 572.7,308.3 584.0,304.7 595.3,306.2 606.7,289.3 618.0,227.0 629.3,247.5 640.7,223.3 652.0,254.7 663.3,263.8 674.7,240.8 686.0,227.4 697.3,284.2 708.7,223.1 720.0,194.5 731.3,201.3 742.7,207.7 754.0,191.4" fill="none" stroke="#1762c4" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="414.0" y="415" font-size="14" text-anchor="middle" fill="#455569">Monte Carlo step</text>
+<text x="74" y="54" font-size="12" fill="#455569">Angstrom</text>
+<text x="754" y="390" font-size="12" text-anchor="end" fill="#455569">600 steps</text>
+</svg>
