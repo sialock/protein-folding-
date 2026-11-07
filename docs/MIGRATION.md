@@ -2,7 +2,7 @@
 
 The former `protein-folding-` repository contained a small exploratory Monte Carlo script. Protein-MC-Go v0.1 replaces it with a testable, installable, explicitly **native-biased Cα** demonstration. The original source remains available through Git history; no rewriting of historic commits is required.
 
-A separate, related legacy experiment also exists at [protein-folding-using-Monte-Carlo-and-analyzing-the-structure](https://github.com/sialock/protein-folding-using-Monte-Carlo-and-analyzing-the-structure). It is not a dependency and none of its code is mixed into this repository.
+A second 2024 experiment is preserved in the separate [protein-folding-using-Monte-Carlo-and-analyzing-the-structure](https://github.com/sialock/protein-folding-using-Monte-Carlo-and-analyzing-the-structure) repository. It is now a historical archive. Its original script has important limitations, including inconsistent energy units, incorrect handling of zero-distance Lennard-Jones terms, independent atom moves that break bonded geometry, shared mutable structures in parallel runs, and unseeded random-number generators. Those problems are documented in its [code review](https://github.com/sialock/protein-folding-using-Monte-Carlo-and-analyzing-the-structure/blob/main/CODE_REVIEW.md). The archive is not a dependency, and no code is imported from it.
 
 ## Main corrections
 

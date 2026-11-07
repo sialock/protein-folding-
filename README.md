@@ -106,6 +106,10 @@ The contact map comes from the input structure itself. For that reason, results 
 
 More detail is available in [Scientific notes](docs/SCIENTIFIC_NOTES.md). The changes from the earlier script are described in [Migration notes](docs/MIGRATION.md).
 
+## Earlier prototype
+
+An earlier atom-displacement experiment is preserved in a [separate repository](https://github.com/sialock/protein-folding-using-Monte-Carlo-and-analyzing-the-structure). It is now documented as a historical prototype, not a supported folding method. The two repositories are separate; this package does not import code from that archive. See the [migration notes](docs/MIGRATION.md) for the differences.
+
 ## Development
 
 Install the development dependencies, then run the tests and build the package:
