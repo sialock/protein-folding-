@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0 — 2026-11-07
+
+- Added explicit attractive/repulsive reduced-energy decomposition.
+- Added initial/best/final C-alpha geometry diagnostics: radius of gyration,
+  consecutive bond-length statistics, virtual-angle statistics, nonlocal
+  overlap counts, native-contact fraction and reference-aligned RMSD.
+- Added `structure_diagnostics.csv` and embedded diagnostics in `summary.json`.
+- Expanded regression tests for diagnostic calculations and invalid inputs.
+- Clarified that geometry checks are descriptive and do not establish physical validity.
+
 ## 0.1.0 — 2026-10-31
 
 Initial self-contained scientific rewrite of the older Monte Carlo example:

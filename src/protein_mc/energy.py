@@ -62,17 +62,39 @@ class GoModel:
     def n_contacts(self) -> int:
         return len(self.contact_i)
 
-    def energy(self, coords: np.ndarray) -> float:
+    def energy_components(self, coords: np.ndarray) -> dict[str, float | int]:
+        """Return the toy energy decomposition and nonlocal overlap diagnostics.
+
+        Energies are dimensionless reduced units. The pair set follows the
+        configured sequence-separation cutoff and is not an all-atom potential.
+        """
         xyz = np.asarray(coords, dtype=float)
         if xyz.shape != self.reference.shape or not np.isfinite(xyz).all():
             raise ValueError("Invalid coordinate shape or non-finite values")
-        d = np.linalg.norm(xyz[self.pair_i] - xyz[self.pair_j], axis=1)
-        overlap = np.maximum(self.params.excluded_radius_angstrom - d, 0.0)
+
+        pair_distances = np.linalg.norm(
+            xyz[self.pair_i] - xyz[self.pair_j], axis=1
+        )
+        overlap = np.maximum(self.params.excluded_radius_angstrom - pair_distances, 0.0)
         repulsive = 0.5 * self.params.repulsion_strength * np.sum(overlap**2)
-        contact_d = np.linalg.norm(xyz[self.contact_i] - xyz[self.contact_j], axis=1)
-        delta = (contact_d - self.contact_distances) / self.params.contact_width_angstrom
+
+        contact_distances = np.linalg.norm(
+            xyz[self.contact_i] - xyz[self.contact_j], axis=1
+        )
+        delta = (contact_distances - self.contact_distances) / self.params.contact_width_angstrom
         attractive = -self.params.contact_strength * np.sum(np.exp(-0.5 * delta**2))
-        return float(repulsive + attractive)
+
+        return {
+            "attractive_reduced": float(attractive),
+            "repulsive_reduced": float(repulsive),
+            "total_reduced": float(attractive + repulsive),
+            "nonlocal_clash_pair_count": int(np.count_nonzero(overlap > 0.0)),
+            "max_nonlocal_overlap_angstrom": float(overlap.max()) if overlap.size else 0.0,
+        }
+
+    def energy(self, coords: np.ndarray) -> float:
+        """Return total dimensionless reduced toy energy."""
+        return float(self.energy_components(coords)["total_reduced"])
 
     def native_contact_fraction(self, coords: np.ndarray, tolerance_angstrom: float = 1.5) -> float:
         """Fraction of native contacts within an absolute distance tolerance."""

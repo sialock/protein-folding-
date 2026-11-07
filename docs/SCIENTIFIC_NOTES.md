@@ -67,3 +67,17 @@ experimentally benchmarked reference method.
   factors: what determines the structural details of the transition state
   ensemble and "en-route" intermediates for protein folding? *J. Mol. Biol.*
   298, 937-953. DOI: 10.1006/jmbi.2000.3693.
+
+## Added structural diagnostics (v0.2.0)
+
+For the initial, best-toy-energy and final accepted conformations, the CLI
+reports the radius of gyration, consecutive C-alpha bond-length distribution,
+virtual C-alpha angle distribution, nonlocal overlaps under the model's
+excluded-radius term, native-contact fraction, Kabsch-aligned C-alpha RMSD,
+and the attractive/repulsive reduced-energy components.
+
+The nominal 3.8 Å C-alpha spacing is used only as a coarse geometry sanity
+reference. The virtual angle is a geometric descriptor, not a complete
+backbone stereochemistry test. These diagnostics do not add missing physical
+terms to the Go-like potential and do not make the model suitable for de novo
+folding, molecular dynamics, or thermodynamic inference.

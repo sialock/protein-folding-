@@ -11,6 +11,7 @@ import sys
 
 from . import __version__
 from .benchmark import run_seed_sweep
+from .diagnostics import structure_diagnostics
 from .energy import EnergyParameters, GoModel
 from .geometry import kabsch_rmsd
 from .report import write_trace_svg
@@ -70,6 +71,26 @@ def run(args: argparse.Namespace) -> None:
     ]:
         write_ca_pdb(args.outdir / filename, protein, coords, label)
 
+    structure_states = {
+        "initial": result.initial_coords,
+        "best": result.best_coords,
+        "final": result.final_coords,
+    }
+    structural_diagnostics = {
+        state: structure_diagnostics(coords, model)
+        for state, coords in structure_states.items()
+    }
+    diagnostic_rows = [
+        {"state": state, **metrics}
+        for state, metrics in structural_diagnostics.items()
+    ]
+    with (args.outdir / "structure_diagnostics.csv").open(
+        "w", newline="", encoding="utf-8"
+    ) as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(diagnostic_rows[0]))
+        writer.writeheader()
+        writer.writerows(diagnostic_rows)
+
     with (args.outdir / "metrics.csv").open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=list(result.trace[0]))
         writer.writeheader()
@@ -93,6 +114,11 @@ def run(args: argparse.Namespace) -> None:
         "final_rmsd_angstrom": kabsch_rmsd(result.final_coords, model.reference),
         "best_energy_reduced": result.best_energy,
         "final_energy_reduced": model.energy(result.final_coords),
+        "structural_diagnostics": structural_diagnostics,
+        "diagnostics_note": (
+            "C-alpha geometry and reduced-energy diagnostics are descriptive checks; "
+            "they do not establish physical validity or folding accuracy."
+        ),
     }
     (args.outdir / "summary.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -105,6 +131,7 @@ def run(args: argparse.Namespace) -> None:
     )
     print(f"Wrote {args.outdir} | {len(protein.coords)} CA | {model.n_contacts} contacts")
     print(f"Acceptance {result.acceptance_rate:.2%} | best CA RMSD {summary['best_rmsd_angstrom']:.2f} A")
+    print(f"Structural diagnostics: {args.outdir / 'structure_diagnostics.csv'}")
     print("Reminder: reference structure is used to construct the energy landscape.")
 
 

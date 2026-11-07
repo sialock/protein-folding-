@@ -20,6 +20,9 @@
   attractive contacts and nonlocal excluded-volume repulsion.
 - Reproducible Cα-only PDBs, energy/RMSD trace plots (SVG), CSV metrics, and a JSON
   run manifest with source-file SHA-256 and configuration.
+- Initial/best/final structure diagnostics: radius of gyration, Cα bond-length and
+  virtual-angle summaries, nonlocal clash counts, native-contact fraction, RMSD,
+  and attractive/repulsive energy components.
 - CLI entry point (single-run and multi-seed diagnostics), Python package layout, tests, and GitHub Actions CI.
 - A small *synthetic* helix PDB fixture that runs without network access.
 
@@ -78,10 +81,25 @@ they show a **toy energy and Cα RMSD trajectory**, not experimentally validated
 | `summary.json` | Seed, parameters, SHA-256 input, best/final metrics, limitations |
 | `energy_trace.svg` | Portable vector visualization of toy energy |
 | `rmsd_trace.svg` | Portable vector visualization of Cα RMSD |
+| `structure_diagnostics.csv` | Geometry and energy-component comparison for initial, best and final structures |
 
 Coordinates and RMSD are in **Ångström**; `temperature` is a **dimensionless
 reduced temperature** (`k_B T` measured in toy-energy units), **not Kelvin**.
 The acceptance rule is `min(1, exp(-ΔE/T_reduced))`.
+
+## Structural diagnostics
+
+Each single-run analysis now compares the scrambled initial conformation, the
+lowest-toy-energy sampled conformation, and the final accepted conformation.
+The report includes radius of gyration, consecutive C-alpha bond-length
+statistics, virtual C-alpha angle statistics, nonlocal overlaps under the
+configured excluded-radius term, native-contact fraction, reference-aligned
+RMSD, and the attractive/repulsive components of the reduced toy energy.
+
+These measurements are descriptive diagnostics. A C-alpha bond-length check
+does not validate backbone stereochemistry, and a low clash count or toy energy
+does not establish physical realism, thermodynamic accuracy, or folding ability.
+See [scientific notes](docs/SCIENTIFIC_NOTES.md).
 
 ## Model overview
 
@@ -111,7 +129,7 @@ See [scientific notes](docs/SCIENTIFIC_NOTES.md) for methodological limitations.
 ## Project structure
 
 ```text
-src/protein_mc/       Package: structure IO, geometry, energy, Monte Carlo, CLI, SVG
+src/protein_mc/       Package: structure IO, geometry, energy, diagnostics, Monte Carlo, CLI, SVG
 examples/             Synthetic, openly reusable toy input
 assets/               Genuine CLI-generated demo plots
 tests/                Unit and end-to-end regression tests
@@ -139,6 +157,7 @@ protein-mc run --pdb examples/synthetic_helix_ca.pdb \
 - [x] Dimensionally consistent reduced-energy Metropolis acceptance
 - [x] Independent random generator and immutable native coordinates
 - [x] CLI, packaging, validation, CI, synthetic fixture, SVG reports
+- [x] Initial/best/final C-alpha geometry and energy decomposition diagnostics
 - [ ] PDB selection with missing residues / insertion codes
 - [ ] Additional Monte Carlo moves and convergence/replica diagnostics
 - [ ] Comparison with established structure modeling packages
