@@ -99,7 +99,12 @@ class GoModel:
     def native_contact_fraction(self, coords: np.ndarray, tolerance_angstrom: float = 1.5) -> float:
         """Fraction of native contacts within an absolute distance tolerance."""
         xyz = np.asarray(coords, dtype=float)
-        if xyz.shape != self.reference.shape or tolerance_angstrom <= 0:
+        if (
+            xyz.shape != self.reference.shape
+            or not np.isfinite(xyz).all()
+            or not np.isfinite(tolerance_angstrom)
+            or tolerance_angstrom <= 0
+        ):
             raise ValueError("Invalid coordinates or tolerance")
         distances = np.linalg.norm(xyz[self.contact_i] - xyz[self.contact_j], axis=1)
         return float(np.mean(np.abs(distances - self.contact_distances) <= tolerance_angstrom))

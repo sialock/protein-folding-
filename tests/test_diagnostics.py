@@ -40,3 +40,18 @@ def test_energy_components_reject_invalid_coordinates():
     model = GoModel(helix())
     with pytest.raises(ValueError, match="Invalid coordinate"):
         model.energy_components(np.zeros((3, 3)))
+
+
+def test_native_contact_fraction_rejects_nonfinite_inputs():
+    model = GoModel(helix())
+    invalid_coords = helix()
+    invalid_coords[0, 0] = np.nan
+
+    with pytest.raises(ValueError, match="Invalid coordinates or tolerance"):
+        model.native_contact_fraction(invalid_coords)
+
+    with pytest.raises(ValueError, match="Invalid coordinates or tolerance"):
+        model.native_contact_fraction(helix(), tolerance_angstrom=np.nan)
+
+    with pytest.raises(ValueError, match="Invalid coordinates or tolerance"):
+        model.native_contact_fraction(helix(), tolerance_angstrom=np.inf)

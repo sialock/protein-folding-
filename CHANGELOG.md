@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 — 2026-11-07
+
+- Reject non-finite coordinates and invalid tolerances when calculating native-contact fraction.
+- Rewrote the README with shorter setup instructions and a clearer explanation of the model and its limits.
+- Added a package build check to the CI workflow.
+
 ## 0.2.0 — 2026-11-07
 
 - Added explicit attractive/repulsive reduced-energy decomposition.
