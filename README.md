@@ -8,27 +8,27 @@ Protein-MC-Go is a small Python project for trying out Monte Carlo moves on a pr
 
 Clone the repository and install the package:
 
-\`\`\`bash
+```bash
 git clone https://github.com/sialock/protein-folding-.git
 cd protein-folding-
 
 python -m venv .venv
-source .venv/bin/activate       # Windows: .venv\Scripts\activate
+source .venv/bin/activate       # Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install -e .
-\`\`\`
+```
 
 To run the tests, install the development dependencies as well:
 
-\`\`\`bash
+```bash
 python -m pip install -e ".[dev]"
 python -m pytest -q
-\`\`\`
+```
 
 ## Run an example
 
 The repository includes a small synthetic helix. Use it to check that the installation works:
 
-\`\`\`bash
+```bash
 protein-mc run \
   --pdb examples/synthetic_helix_ca.pdb \
   --chain A \
@@ -36,13 +36,13 @@ protein-mc run \
   --scramble-steps 300 \
   --seed 42 \
   --outdir results/helix
-\`\`\`
+```
 
-You can also run the command through Python if the \`protein-mc\` entry point is not available:
+You can also run the command through Python if the `protein-mc` entry point is not available:
 
-\`\`\`bash
+```bash
 python -m protein_mc run --pdb examples/synthetic_helix_ca.pdb --chain A --outdir results/helix
-\`\`\`
+```
 
 To use another structure, replace the example PDB path and set the chain you want to analyse.
 
@@ -58,29 +58,37 @@ The output directory contains:
 
 | File | What it contains |
 | --- | --- |
-| \`initial_ca.pdb\` | The structure after the initial scrambling moves |
-| \`best_ca.pdb\` | The sampled structure with the lowest value of the model's energy function |
-| \`final_ca.pdb\` | The structure at the end of the run |
-| \`metrics.csv\` | Energy, RMSD, native-contact fraction and acceptance rate over the run |
-| \`structure_diagnostics.csv\` | Geometry and energy measurements for the initial, best and final structures |
-| \`summary.json\` | Run settings, input-file hash and summary measurements |
-| \`energy_trace.svg\` | Energy during the run |
-| \`rmsd_trace.svg\` | Cα RMSD to the input structure during the run |
+| `initial_ca.pdb` | The structure after the initial scrambling moves |
+| `best_ca.pdb` | The sampled structure with the lowest value of the model's energy function |
+| `final_ca.pdb` | The structure at the end of the run |
+| `metrics.csv` | Energy, RMSD, native-contact fraction and acceptance rate over the run |
+| `structure_diagnostics.csv` | Geometry and energy measurements for the initial, best and final structures |
+| `summary.json` | Run settings, input-file hash and summary measurements |
+| `energy_trace.svg` | Energy during the run |
+| `rmsd_trace.svg` | Cα RMSD to the input structure during the run |
 
 The lowest-energy structure is not necessarily the one with the lowest RMSD. The program selects it using the toy energy function, not by choosing the structure closest to the reference.
 
+## Example plots
+
+These plots were made with the synthetic helix included in the repository. They show the energy and Cα RMSD recorded during one run; they are examples of the program's output, not biological results.
+
+![Energy trace](assets/demo_energy.svg)
+
+![C-alpha RMSD trace](assets/demo_rmsd.svg)
+
 ## Run more than one seed
 
-The \`benchmark\` command repeats the run with different random seeds. It writes \`replicates.csv\` and \`benchmark_summary.json\`, including the mean, standard deviation, minimum and maximum for each reported measurement.
+The `benchmark` command repeats the run with different random seeds. It writes `replicates.csv` and `benchmark_summary.json`, including the mean, standard deviation, minimum and maximum for each reported measurement.
 
-\`\`\`bash
+```bash
 protein-mc benchmark \
   --pdb examples/synthetic_helix_ca.pdb \
   --chain A \
   --steps 600 \
   --n-replicates 5 \
   --outdir results/seed-sweep
-\`\`\`
+```
 
 This is useful for seeing how much the results vary between runs. It does not show that the simulation has converged or that the program can predict an unknown protein structure.
 
@@ -102,12 +110,12 @@ More detail is available in [Scientific notes](docs/SCIENTIFIC_NOTES.md). The ch
 
 Install the development dependencies, then run the tests and build the package:
 
-\`\`\`bash
+```bash
 python -m pip install -e ".[dev]"
 python -m pytest -q
 python -m compileall -q src
 python -m build
-\`\`\`
+```
 
 GitHub Actions runs the test suite on Python 3.10 and 3.12.
 
